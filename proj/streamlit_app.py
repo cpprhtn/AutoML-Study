@@ -22,10 +22,11 @@ def main():
         else:
             data = {"path": file_path, "max_trials": max_trials, "epochs": epochs} 
             response = requests.post(url, json=data, timeout=300)
-            result_image = Image.open(f"{file_path[:-4]}.png")
-            st.success("학습이 완료되었습니다!")
-
-            st.image(result_image, caption="학습 결과", use_column_width=True)
+            loss_image = Image.open(f"{file_path[:-4]}_loss.png")
+            pred_image = Image.open(f"{file_path[:-4]}_prediction_results.png")
+            st.success("학습 및 예측 완료되었습니다!")
+            st.image(loss_image, caption="학습 결과 loss", use_column_width=True)
+            st.image(pred_image, caption="예측 결과", use_column_width=True)
 
 if __name__ == "__main__":
     main()
