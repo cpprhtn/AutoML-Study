@@ -13,13 +13,14 @@ def click(file_path):
 def main():
     st.title("AutoML Training")
 
-    file_path = st.text_input("파일 경로 입력", "/path/to/your/file.csv")
-
+    file_path = st.text_input("data", "/path/to/your/file.csv")
+    max_trials = st.text_input("max trials:", "50")
+    epochs = st.text_input("epochs:", "20")
     if st.button("학습 시작"):
         if not file_path:
             st.warning("파일 경로를 입력하세요.")
         else:
-            data = {"path": file_path} 
+            data = {"path": file_path, "max_trials": max_trials, "epochs": epochs} 
             response = requests.post(url, json=data, timeout=300)
             result_image = Image.open(f"{file_path[:-4]}.png")
             st.success("학습이 완료되었습니다!")
