@@ -22,6 +22,8 @@ def Training_Model(data_path, max_trials=50, epochs=20):
 
     X_test_scaled = scaler.transform(X[-60:])
 
+    print(X_test_scaled)
+
     predictions_test = regressor.predict(X_test_scaled).flatten()
 
     test_result = pd.DataFrame({
@@ -34,8 +36,6 @@ def Training_Model(data_path, max_trials=50, epochs=20):
 
     best_model.save(data_path[:-4])
 
-    # loaded_model = load_model("model_autokeras")
-
     plt.figure(figsize=(12, 6))
     plt.plot(data_with_volatility.index, data_with_volatility['Consumption'], label='Actual Consumption', color='blue')
     plt.plot(test_result['Date'], test_result['Predicted Consumption'], label='Predicted Consumption (Test)', color='red', linestyle='dashed')
@@ -45,10 +45,5 @@ def Training_Model(data_path, max_trials=50, epochs=20):
     plt.legend()
     plt.grid(True)
     plt.savefig(data_path[:-4]+".png")
-    # plt.show()
 
     return "{data_path} 데이터셋 학습이 완료되었습니다."
-
-
-
-# Training_Model("data2.csv")
